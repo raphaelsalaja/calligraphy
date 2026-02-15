@@ -5,9 +5,21 @@ import "@/styles/index.css";
 
 const openRunde = localFont({
   src: [
-    { path: "../fonts/open-runde/regular.woff2", weight: "400", style: "normal" },
-    { path: "../fonts/open-runde/medium.woff2", weight: "500", style: "normal" },
-    { path: "../fonts/open-runde/semibold.woff2", weight: "600", style: "normal" },
+    {
+      path: "../fonts/open-runde/regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/open-runde/medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../fonts/open-runde/semibold.woff2",
+      weight: "600",
+      style: "normal",
+    },
     { path: "../fonts/open-runde/bold.woff2", weight: "700", style: "normal" },
   ],
   variable: "--font-sans",
