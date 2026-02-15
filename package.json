@@ -1,5 +1,5 @@
 {
-  "name": "taki",
+  "name": "calligraphy",
   "private": true,
   "scripts": {
     "build": "turbo run build",
