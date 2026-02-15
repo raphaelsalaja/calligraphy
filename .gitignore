@@ -3,3 +3,4 @@ dist
 .next
 .turbo
 *.tsbuildinfo
+.vercel
