@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   max-width: 512px;
   padding-top: 128px;
   padding-bottom: 64px;
@@ -24,31 +23,23 @@
   color: var(--gray-12);
 }
 
-.version {
+.versionContainer {
+  display: flex;
+  gap: 4px;
+  align-items: center;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.5;
+  color: var(--crimson-9);
+}
+
+.version {
   color: var(--crimson-9);
   transition: opacity 0.15s;
 }
 
 .version:hover {
   opacity: 0.7;
-}
-
-.spacer {
-  flex: 1;
-}
-
-.githubLink {
-  display: flex;
-  align-items: center;
-  color: var(--gray-9);
-  transition: color 0.15s;
-}
-
-.githubLink:hover {
-  color: var(--gray-12);
 }
 
 .srOnly {
@@ -86,36 +77,8 @@
   color: var(--gray-12);
 }
 
-.footer {
-  display: flex;
-  align-items: center;
-  padding-top: 48px;
-  font-size: 13px;
-  color: var(--gray-9);
-}
-
-.link {
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.link:hover {
-  color: var(--gray-12);
-}
-
 @media (max-width: 560px) {
   .page {
     padding: 64px 16px;
   }
-}
-
-.versionContainer {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--crimson-9);
-  transition: opacity 0.15s;
 }

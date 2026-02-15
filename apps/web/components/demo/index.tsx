@@ -33,37 +33,64 @@ function useMeasure<T extends HTMLElement = HTMLElement>(): [
   return [ref, bounds];
 }
 
-const words = ["Calligraphy", "Craft", "Creative", "Create"];
+const defaultWords = ["Calligraphy", "Craft", "Creative", "Create"];
 
 export function Demo() {
+  const [wordList, setWordList] = useState(defaultWords);
+  const [inputValue, setInputValue] = useState(defaultWords.join(", "));
   const [text, setText] = useState("Calligraphy");
   const [ref, bounds] = useMeasure();
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    const parsed = e.target.value
+      .split(",")
+      .map((w) => w.trim())
+      .filter(Boolean);
+    if (parsed.length > 0) setWordList(parsed);
+  };
+
   const shuffle = useCallback(() => {
     setText((prev) => {
-      const others = words.filter((w) => w !== prev);
-      return others[Math.floor(Math.random() * others.length)];
+      const others = wordList.filter((w) => w !== prev);
+      return others[Math.floor(Math.random() * others.length)] ?? prev;
     });
-  }, []);
+  }, [wordList]);
 
   return (
     <div className={styles.root}>
-      <motion.button
-        type="button"
-        animate={{
-          width: bounds.width > 0 ? bounds.width : "auto",
-        }}
-        onClick={shuffle}
-        className={styles.button}
-        transition={{
-          duration: 0.4,
-          ease: [0.19, 1, 0.22, 1],
-        }}
-      >
-        <div ref={ref} className={styles.wrapper}>
-          <Calligraphy className={styles.text}>{text}</Calligraphy>
-        </div>
-      </motion.button>
+      <div className={styles.content}>
+        <motion.button
+          type="button"
+          animate={{
+            width: bounds.width > 0 ? bounds.width : "auto",
+          }}
+          onClick={shuffle}
+          className={styles.button}
+          transition={{
+            duration: 0.4,
+            ease: [0.19, 1, 0.22, 1],
+          }}
+        >
+          <div ref={ref} className={styles.wrapper}>
+            <Calligraphy className={styles.text}>{text}</Calligraphy>
+          </div>
+        </motion.button>
+      </div>
+
+      <div className={styles.control}>
+        <label htmlFor="words-input" className={styles.label}>
+          Words
+        </label>
+        <input
+          id="words-input"
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          className={styles.input}
+          placeholder="Comma separated words"
+        />
+      </div>
     </div>
   );
 }

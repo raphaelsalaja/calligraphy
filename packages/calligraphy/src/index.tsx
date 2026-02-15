@@ -109,15 +109,15 @@ export function Calligraphy(props: CalligraphyProps) {
       <AnimatePresence mode="popLayout" initial={false}>
         {text.split("").map((char: string, i: number) => {
           const key = charKeys[i];
-          const isEntering = enteringKeysRef.current.has(key);
+          const _isEntering = enteringKeysRef.current.has(key);
 
           return (
             <motion.span
               key={key}
-              layout={isEntering ? false : "position"}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              layout="position"
+              initial={{ opacity: 0, filter: "blur(2px)", scale: 0.95 }}
+              animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+              exit={{ opacity: 0, filter: "blur(2px)", scale: 0.95 }}
               transition={base}
               style={{
                 display: "inline-block",
