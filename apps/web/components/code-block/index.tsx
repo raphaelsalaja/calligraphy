@@ -1,4 +1,5 @@
 import { type BundledLanguage, codeToTokens } from "shiki";
+import { CopyButton } from "./copy-button";
 import styles from "./styles.module.css";
 
 interface CodeBlockProps {
@@ -17,6 +18,7 @@ export async function CodeBlock({
 
   return (
     <div className={styles.root}>
+      <CopyButton text={children} />
       <pre>
         <code>
           {tokens.map((line, i) => {

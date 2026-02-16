@@ -77,6 +77,36 @@
   color: var(--gray-12);
 }
 
+.table {
+  width: 100%;
+  font-size: 13px;
+  line-height: 1.5;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 6px 12px 6px 0;
+  font-weight: 500;
+  color: var(--gray-12);
+  text-align: left;
+  border-bottom: 1px solid var(--gray-4);
+}
+
+.table td {
+  padding: 6px 12px 6px 0;
+  color: var(--gray-11);
+  vertical-align: top;
+  border-bottom: 1px solid var(--gray-3);
+}
+
+.table code {
+  padding: 1px 5px;
+  font-family: "JetBrains Mono", var(--font-mono), monospace;
+  font-size: 12px;
+  background: var(--gray-3);
+  border-radius: 4px;
+}
+
 @media (max-width: 560px) {
   .page {
     padding: 64px 16px;

@@ -51,8 +51,6 @@ jobs:
       - name: Publish to npm
         if: steps.changesets.outputs.hasChangesets == 'false'
         working-directory: packages/calligraph
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           CURRENT=$(node -p "require('./package.json').version")
           PUBLISHED=$(npm view calligraph version 2>/dev/null || echo "0.0.0")
