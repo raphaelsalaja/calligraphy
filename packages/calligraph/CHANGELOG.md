@@ -1,5 +1,11 @@
 # calligraph
 
+## 1.0.2
+
+### Patch Changes
+
+- a606c08: Improve accessibility with aria-label and aria-hidden, fix O(n²) LCS backtracking, and narrow children type to string | number
+
 ## 1.0.1
 
 ### Patch Changes
