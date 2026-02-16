@@ -1,5 +1,11 @@
 # calligraph
 
+## 1.0.3
+
+### Patch Changes
+
+- 644d589: Re-release
+
 ## 1.0.2
 
 ### Patch Changes
