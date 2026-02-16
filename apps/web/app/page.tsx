@@ -69,14 +69,6 @@ export default function Page() {
       <Section title="Usage">
         <CodeBlock>{usageCode}</CodeBlock>
       </Section>
-
-      <Section title="Best practices">
-        <p className={styles.description}>
-          Works best with short strings of similar length. Animate the
-          parent&rsquo;s width to prevent layout jumps, and use shorter
-          durations for frequent updates, longer ones for deliberate changes.
-        </p>
-      </Section>
     </div>
   );
 }
