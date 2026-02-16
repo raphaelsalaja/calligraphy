@@ -69,6 +69,71 @@ export default function Page() {
       <Section title="Usage">
         <CodeBlock>{usageCode}</CodeBlock>
       </Section>
+
+      <Section title="Props">
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Prop</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code>children</code>
+              </td>
+              <td>
+                <code>string | number</code>
+              </td>
+              <td>&mdash;</td>
+              <td>The text to animate.</td>
+            </tr>
+            <tr>
+              <td>
+                <code>drift</code>
+              </td>
+              <td>
+                <code>number</code>
+              </td>
+              <td>
+                <code>20</code>
+              </td>
+              <td>
+                Horizontal spread in px for entering/exiting characters. Set to{" "}
+                <code>0</code> to disable.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>transition</code>
+              </td>
+              <td>
+                <code>Transition</code>
+              </td>
+              <td>
+                <code>{`{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }`}</code>
+              </td>
+              <td>Motion transition for all animations.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p className={styles.description}>
+          Also accepts all <code>motion.span</code> props:{" "}
+          <code>className</code>, <code>style</code>, <code>animate</code>,
+          etc.
+        </p>
+      </Section>
+
+      <Section title="Best practices">
+        <p className={styles.description}>
+          Works best with short strings of similar length. Animate the
+          parent&rsquo;s width to prevent layout jumps, and use shorter
+          durations for frequent updates, longer ones for deliberate changes.
+        </p>
+      </Section>
     </div>
   );
 }
