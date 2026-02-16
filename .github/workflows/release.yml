@@ -30,33 +30,18 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           cache: pnpm
 
-      - name: Install latest npm
-        run: npm install -g npm@latest
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm build
 
-      - name: Create release PR
-        id: changesets
+      - name: Create release PR or Publish
         uses: changesets/action@v1
         with:
           commit: "chore: version packages"
           title: "chore: version packages"
+          publish: pnpm -r publish --provenance
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish to npm
-        if: steps.changesets.outputs.hasChangesets == 'false'
-        working-directory: packages/calligraph
-        run: |
-          CURRENT=$(node -p "require('./package.json').version")
-          PUBLISHED=$(npm view calligraph version 2>/dev/null || echo "0.0.0")
-          if [ "$CURRENT" != "$PUBLISHED" ]; then
-            echo "Publishing calligraph@$CURRENT"
-            npm publish --provenance
-          else
-            echo "calligraph@$CURRENT already published, skipping"
-          fi
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
