@@ -35,7 +35,10 @@ function computeLCS(oldStr: string, newStr: string): [number, number][] {
       pairs.unshift([i - 1, j - 1]);
       i--;
       j--;
-    } else if (dp[i - 1][j] > dp[i][j - 1]) {
+    } else if (
+      dp[i - 1][j] > dp[i][j - 1] ||
+      (dp[i - 1][j] === dp[i][j - 1] && i >= j)
+    ) {
       i--;
     } else {
       j--;

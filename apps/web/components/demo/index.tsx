@@ -43,11 +43,18 @@ export function Demo() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
-    const parsed = e.target.value
+  };
+
+  const handleInputBlur = () => {
+    const parsed = inputValue
       .split(",")
       .map((w) => w.trim())
       .filter(Boolean);
-    if (parsed.length > 0) setWordList(parsed);
+    if (parsed.length > 0) {
+      setWordList(parsed);
+      setInputValue(parsed.join(", "));
+      setText(parsed[0]);
+    }
   };
 
   const shuffle = useCallback(() => {
@@ -87,6 +94,7 @@ export function Demo() {
           type="text"
           value={inputValue}
           onChange={handleInputChange}
+          onBlur={handleInputBlur}
           className={styles.input}
           placeholder="Comma separated words"
         />
