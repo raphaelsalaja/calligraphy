@@ -67,9 +67,10 @@ type CalligraphProps = Omit<HTMLMotionProps<"span">, "children"> & {
  *
  * @param props - Accepts all {@link HTMLMotionProps} for a `span` element.
  *
- * @param props.drift - Horizontal spread in pixels for entering/exiting
- * characters. Left-side characters drift in from the left, right-side from
- * the right. Set to `0` to disable. Defaults to `20`.
+ * @param props.drift - Maximum horizontal spread in pixels for entering/exiting
+ * characters. Automatically scaled by the fraction of characters that changed —
+ * small edits produce subtle drift, large rewrites produce full spread.
+ * Set to `0` to disable. Defaults to `10`.
  *
  * @param props.transition - Custom motion transition. Defaults to
  * `{duration: 0.4, ease: [0.19, 1, 0.22, 1]}`.
@@ -88,6 +89,8 @@ export function Calligraph(props: CalligraphProps) {
     text.split("").map((_, i) => `c${i}`),
   );
 
+  const [changeRatio, setChangeRatio] = useState(1);
+
   if (text !== prevText) {
     const matches = computeLCS(prevText, text);
     const newKeys: string[] = new Array(text.length).fill("");
@@ -96,13 +99,16 @@ export function Calligraph(props: CalligraphProps) {
       newKeys[newIdx] = charKeys[oldIdx];
     }
 
+    let newCount = 0;
     for (let i = 0; i < newKeys.length; i++) {
       if (!newKeys[i]) {
         newKeys[i] = `c${nextIdRef.current++}`;
+        newCount++;
       }
     }
     setPrevText(text);
     setCharKeys(newKeys);
+    setChangeRatio(text.length > 0 ? newCount / text.length : 1);
   }
 
   const defaultDuration = 0.38;
@@ -135,7 +141,7 @@ export function Calligraph(props: CalligraphProps) {
 
             const progress = text.length <= 1 ? 0 : i / (text.length - 1);
 
-            const offset = (progress - 0.5) * drift;
+            const offset = (progress - 0.5) * drift * changeRatio;
 
             const stagger = progress * 0.04;
 
@@ -174,8 +180,9 @@ export function Calligraph(props: CalligraphProps) {
                 transition={{
                   layout: {
                     type: "spring",
-                    stiffness: 500,
-                    damping: 35,
+                    stiffness: 150,
+                    damping: 19,
+                    mass: 1.2,
                   },
                 }}
                 style={{ display: "inline-block", whiteSpace: "pre" }}
