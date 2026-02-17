@@ -1,5 +1,13 @@
 # calligraph
 
+## 1.0.4
+
+### Patch Changes
+
+- 7a9d8b6: - Reduce default duration to 0.38s and drift to 10px.
+  - Simplify code block styles and improve accessibility.
+  - Remove AGENTS.MD file
+
 ## 1.0.3
 
 ### Patch Changes
