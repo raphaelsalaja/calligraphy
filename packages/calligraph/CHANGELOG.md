@@ -1,5 +1,14 @@
 # calligraph
 
+## 1.0.5
+
+### Patch Changes
+
+- f97e6ff: Polish character animations:
+  - stagger characters by position
+  - faster exit transitions
+- 2ab9dcc: Scale drift by the fraction of characters that changed so small edits (e.g. a single digit increment) produce subtle movement while large rewrites get the full spread.
+
 ## 1.0.4
 
 ### Patch Changes
