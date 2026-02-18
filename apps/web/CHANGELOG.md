@@ -1,5 +1,12 @@
 # web
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [2899770]
+  - calligraph@1.1.0
+
 ## 0.0.7
 
 ### Patch Changes

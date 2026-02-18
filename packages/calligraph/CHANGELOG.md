@@ -1,5 +1,11 @@
 # calligraph
 
+## 1.1.0
+
+### Minor Changes
+
+- 2899770: Add `variant` prop (`"text"` | `"number"`) for rolling digit transitions, and `animation` prop with spring presets (`"smooth"`, `"snappy"`, `"bouncy"`) inspired by SwiftUI.
+
 ## 1.0.5
 
 ### Patch Changes
