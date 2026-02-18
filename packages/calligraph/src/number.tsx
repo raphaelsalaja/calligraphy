@@ -2,26 +2,9 @@ import type { Transition } from "motion/react";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { useRef, useState } from "react";
 
-type DigitCustom = { dir: number; delay: number; isNum: boolean };
-
 const isDigit = (c: string) => c >= "0" && c <= "9";
 
-const digitVariants = {
-  initial: ({ dir, isNum }: DigitCustom) => ({
-    y: isNum ? (dir > 0 ? "40%" : "-40%") : 0,
-    opacity: 0,
-  }),
-  animate: ({ delay }: DigitCustom) => ({
-    y: 0,
-    opacity: 1,
-    transition: { delay },
-  }),
-  exit: ({ dir, delay, isNum }: DigitCustom) => ({
-    y: isNum ? (dir > 0 ? "-40%" : "40%") : 0,
-    opacity: 0,
-    transition: { delay },
-  }),
-};
+const distance = 8;
 
 export function NumberRenderer({
   text,
@@ -87,44 +70,68 @@ export function NumberRenderer({
     <MotionConfig transition={transition}>
       <Component
         aria-label={text}
-        style={{ display: "inline-flex", ...style }}
+        style={{ display: "inline-flex", position: "relative", ...style }}
         className={className}
         {...rest}
       >
-        {chars.map((char, i) => {
-          const colIndex = chars.length - 1 - i;
-          const delay = i * stagger;
-          const isLast = i === chars.length - 1;
+        <AnimatePresence mode="popLayout" initial={animateInitial}>
+          {chars.map((char, i) => {
+            const colIndex = chars.length - 1 - i;
+            const delay = i * stagger;
+            const isLast = i === chars.length - 1;
 
-          return (
-            <motion.span
-              key={`col-${colIndex}`}
-              layout="position"
-              style={{ display: "inline-block" }}
-            >
-              <AnimatePresence mode="popLayout" initial={animateInitial}>
-                <motion.span
-                  key={digitKeys[i]}
-                  aria-hidden="true"
-                  variants={digitVariants}
-                  custom={{ dir, delay, isNum: isDigit(char) }}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  onAnimationComplete={
-                    isLast && onComplete ? onComplete : undefined
-                  }
-                  style={{
-                    display: "inline-block",
-                    whiteSpace: "pre",
-                  }}
+            return (
+              <motion.span
+                key={`col-${colIndex}`}
+                layout="position"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                style={{ display: "inline-block", position: "relative" }}
+              >
+                <AnimatePresence
+                  mode="popLayout"
+                  initial={animateInitial}
+                  propagate
                 >
-                  {char}
-                </motion.span>
-              </AnimatePresence>
-            </motion.span>
-          );
-        })}
+                  <motion.span
+                    key={digitKeys[i]}
+                    aria-hidden="true"
+                    initial={{
+                      y: isDigit(char) ? (dir > 0 ? distance : -distance) : 0,
+                      filter: "blur(2px)",
+                      scale: 0.5,
+                      opacity: 0,
+                    }}
+                    animate={{
+                      y: 0,
+                      opacity: 1,
+                      filter: "blur(0px)",
+                      scale: 1,
+                      transition: { delay },
+                    }}
+                    exit={{
+                      y: isDigit(char) ? (dir > 0 ? -distance : distance) : 0,
+                      opacity: 0,
+                      filter: "blur(2px)",
+                      scale: 0.5,
+                      transition: { delay },
+                    }}
+                    onAnimationComplete={
+                      isLast && onComplete ? onComplete : undefined
+                    }
+                    style={{
+                      display: "inline-block",
+                      whiteSpace: "pre",
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                </AnimatePresence>
+              </motion.span>
+            );
+          })}
+        </AnimatePresence>
       </Component>
     </MotionConfig>
   );

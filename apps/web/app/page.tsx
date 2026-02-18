@@ -1,4 +1,8 @@
+"use client";
+
 import pkg from "calligraph/package.json" with { type: "json" };
+import { motion } from "motion/react";
+import { useEffect, useRef } from "react";
 import { CodeBlock } from "../components/code-block";
 import { Demo } from "../components/demo";
 import styles from "./styles.module.css";
@@ -8,10 +12,71 @@ const usage = `import { Calligraph } from "calligraph";
 <Calligraph>Text</Calligraph>
 `;
 
-export default function Page() {
+const palette = ["crimson", "violet", "indigo", "cyan", "teal", "orange", "plum"] as const;
+
+function useThemeRandomizer() {
+  const applied = useRef(false);
+
+  useEffect(() => {
+    if (applied.current) return;
+    applied.current = true;
+
+    const color = palette[Math.floor(Math.random() * palette.length)];
+    if (color === "crimson") return;
+
+    const root = document.documentElement;
+    const computed = getComputedStyle(root);
+
+    for (const step of [8, 9, 10]) {
+      const value = computed.getPropertyValue(`--${color}-${step}`).trim();
+      if (value) root.style.setProperty(`--crimson-${step}`, value);
+    }
+
+    const fill = computed.getPropertyValue(`--${color}-9`).trim();
+    if (!fill) return;
+
+    let link = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      document.head.appendChild(link);
+    }
+    link.href = URL.createObjectURL(
+      new Blob(
+        [`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="${fill}"/></svg>`],
+        { type: "image/svg+xml" },
+      ),
+    );
+  }, []);
+}
+
+const transition = { duration: 0.5, ease: [0.19, 1, 0.22, 1] as const };
+
+const item = {
+  initial: { opacity: 0, filter: "blur(4px)", y: 8 },
+  animate: { opacity: 1, filter: "blur(0px)", y: 0 },
+};
+
+function Reveal({ children, className, as = "div" }: { children: React.ReactNode; className?: string; as?: "div" | "p" | "footer" }) {
+  const Tag = motion[as];
   return (
-    <div className={styles.page}>
-      <div className={styles.heading}>
+    <Tag className={className} variants={item} transition={transition}>
+      {children}
+    </Tag>
+  );
+}
+
+export default function Page() {
+  useThemeRandomizer();
+
+  return (
+    <motion.div
+      className={styles.page}
+      initial="initial"
+      animate="animate"
+      transition={{ staggerChildren: 0.06 }}
+    >
+      <Reveal className={styles.heading}>
         <h1 className={styles.title}>Calligraph</h1>
         <div className={styles.versionContainer}>
           <a
@@ -41,23 +106,29 @@ export default function Page() {
             </svg>
           </a>
         </div>
-      </div>
+      </Reveal>
 
-      <p className={styles.description}>
+      <Reveal as="p" className={styles.description}>
         Fluid text transitions powered by Motion.
-      </p>
+      </Reveal>
 
-      <Demo />
+      <Reveal>
+        <Demo />
+      </Reveal>
 
-      <Section title="Installation">
-        <CodeBlock terminal>npm install calligraph</CodeBlock>
-      </Section>
+      <Reveal>
+        <Section title="Installation">
+          <CodeBlock terminal>npm install calligraph</CodeBlock>
+        </Section>
+      </Reveal>
 
-      <Section title="Usage">
-        <CodeBlock>{usage}</CodeBlock>
-      </Section>
+      <Reveal>
+        <Section title="Usage">
+          <CodeBlock>{usage}</CodeBlock>
+        </Section>
+      </Reveal>
 
-      <footer className={styles.footer}>
+      <Reveal as="footer" className={styles.footer}>
         by{" "}
         <a
           href="https://x.com/intent/follow?screen_name=raphaelsalaja"
@@ -76,8 +147,8 @@ export default function Page() {
         >
           userinterface.wiki
         </a>
-      </footer>
-    </div>
+      </Reveal>
+    </motion.div>
   );
 }
 

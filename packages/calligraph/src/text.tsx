@@ -89,9 +89,15 @@ export function TextRenderer({
         newCount++;
       }
     }
+
+    const keptCount = text.length - newCount;
+    const removedCount = prevText.length - keptCount;
+    const totalChange = newCount + removedCount;
+    const maxLen = Math.max(text.length, prevText.length);
+
     setPrevText(text);
     setCharKeys(newKeys);
-    setChangeRatio(text.length > 0 ? newCount / text.length : 1);
+    setChangeRatio(maxLen > 0 ? totalChange / maxLen : 1);
   }
 
   return (

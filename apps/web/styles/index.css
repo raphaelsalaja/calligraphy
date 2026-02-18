@@ -3,11 +3,23 @@
 @import "@radix-ui/colors/blue.css";
 @import "@radix-ui/colors/blue-alpha.css";
 @import "@radix-ui/colors/crimson.css";
+@import "@radix-ui/colors/violet.css";
+@import "@radix-ui/colors/indigo.css";
+@import "@radix-ui/colors/cyan.css";
+@import "@radix-ui/colors/teal.css";
+@import "@radix-ui/colors/orange.css";
+@import "@radix-ui/colors/plum.css";
 @import "@radix-ui/colors/gray-dark.css";
 @import "@radix-ui/colors/gray-dark-alpha.css";
 @import "@radix-ui/colors/blue-dark.css";
 @import "@radix-ui/colors/blue-dark-alpha.css";
 @import "@radix-ui/colors/crimson-dark.css";
+@import "@radix-ui/colors/violet-dark.css";
+@import "@radix-ui/colors/indigo-dark.css";
+@import "@radix-ui/colors/cyan-dark.css";
+@import "@radix-ui/colors/teal-dark.css";
+@import "@radix-ui/colors/orange-dark.css";
+@import "@radix-ui/colors/plum-dark.css";
 
 @import "./styles.reset.css";
 
