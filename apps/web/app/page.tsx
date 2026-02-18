@@ -3,21 +3,10 @@ import { CodeBlock } from "../components/code-block";
 import { Demo } from "../components/demo";
 import styles from "./styles.module.css";
 
-const usageCode = `import { Calligraph } from "calligraph";
-import { useState } from "react";
+const usage = `import { Calligraph } from "calligraph";
 
-function App() {
-  const [text, setText] = useState("Hello");
-
-  return (
-    <>
-      <Calligraph>{text}</Calligraph>
-      <button type="button" onClick={() => setText("World")}>
-        Change
-      </button>
-    </>
-  )
-}`;
+<Calligraph>Text</Calligraph>
+`;
 
 export default function Page() {
   return (
@@ -55,20 +44,39 @@ export default function Page() {
       </div>
 
       <p className={styles.description}>
-        Fluid text transitions powered by Motion. Shared characters slide to
-        their new positions while entering characters fade in and exiting ones
-        fade out.
+        Fluid text transitions powered by Motion.
       </p>
 
       <Demo />
 
       <Section title="Installation">
-        <CodeBlock>npm install calligraph</CodeBlock>
+        <CodeBlock terminal>npm install calligraph</CodeBlock>
       </Section>
 
       <Section title="Usage">
-        <CodeBlock>{usageCode}</CodeBlock>
+        <CodeBlock>{usage}</CodeBlock>
       </Section>
+
+      <footer className={styles.footer}>
+        by{" "}
+        <a
+          href="https://x.com/intent/follow?screen_name=raphaelsalaja"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.footerLink}
+        >
+          raphael salaja
+        </a>
+        {" / "}
+        <a
+          href="https://userinterface.wiki"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.footerLink}
+        >
+          userinterface.wiki
+        </a>
+      </footer>
     </div>
   );
 }

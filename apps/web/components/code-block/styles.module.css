@@ -16,7 +16,11 @@
 .root code {
   font-family: "JetBrains Mono", var(--font-mono), monospace;
   font-size: 12px;
-  font-weight: 400;
-  line-height: 20px;
+  font-weight: 500;
   white-space: pre-wrap;
+}
+
+.prompt {
+  color: var(--gray-8);
+  user-select: none;
 }

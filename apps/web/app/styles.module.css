@@ -3,9 +3,23 @@
   flex-direction: column;
   justify-content: center;
   max-width: 512px;
-  padding-top: 128px;
-  padding-bottom: 64px;
+  padding-block: 64px;
   margin: 0 auto;
+}
+
+.footer {
+  padding-top: 48px;
+  font-size: 13px;
+  color: var(--gray-8);
+}
+
+.footerLink {
+  color: var(--gray-11);
+  transition: color 0.15s;
+}
+
+.footerLink:hover {
+  color: var(--gray-12);
 }
 
 .heading {
@@ -17,7 +31,7 @@
 }
 
 .title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1.5;
   color: var(--gray-12);

@@ -27,7 +27,9 @@ const openRunde = localFont({
 });
 
 const title = "Calligraph";
+
 const description = "Fluid text transitions powered by Motion";
+
 const url = "https://calligraph.raphaelsalaja.com";
 
 export const metadata: Metadata = {

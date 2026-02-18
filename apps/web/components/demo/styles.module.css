@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 256px;
+
   padding: 12px 16px;
   margin-top: 24px;
   background: var(--gray-2);
@@ -15,6 +15,7 @@
   display: flex;
   flex: 1;
   align-items: center;
+  min-height: 256px;
   justify-content: center;
 }
 
@@ -22,6 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   font-family: inherit;
   cursor: pointer;
   background: var(--crimson-9);
@@ -50,9 +52,41 @@
   color: var(--gray-1);
 }
 
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.tab {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-8);
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+
+.tab:hover {
+  color: var(--gray-11);
+}
+
+.tab[data-active] {
+  color: var(--gray-12);
+}
+
 .control {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   width: 100%;
 }
@@ -64,7 +98,7 @@
 }
 
 .input {
-  flex: 1;
+  width: 100%;
   font-family: inherit;
   font-size: 14px;
   color: var(--gray-10);
@@ -81,4 +115,9 @@
   .root {
     height: 200px;
   }
+}
+
+.divider {
+  height: 1px;
+  background: var(--gray-3);
 }
