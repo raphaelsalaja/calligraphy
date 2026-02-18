@@ -15,8 +15,8 @@
   display: flex;
   flex: 1;
   align-items: center;
-  min-height: 256px;
   justify-content: center;
+  min-height: 256px;
 }
 
 .button {
