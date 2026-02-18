@@ -1,5 +1,11 @@
 # calligraph
 
+## 1.1.1
+
+### Patch Changes
+
+- 0d39946: Fix flashing during number variant transitions when digit count changes. Wrap columns in AnimatePresence with propagate so inner exit animations fire when columns are removed. Use pixel-based distance instead of percentage for consistent digit slide. Improve text variant changeRatio to account for both added and removed characters.
+
 ## 1.1.0
 
 ### Minor Changes
