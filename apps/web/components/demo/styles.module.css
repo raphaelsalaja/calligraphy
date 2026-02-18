@@ -112,8 +112,8 @@
 }
 
 @media (max-width: 560px) {
-  .root {
-    height: 200px;
+  .content {
+    min-height: 140px;
   }
 }
 

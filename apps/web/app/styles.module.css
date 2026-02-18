@@ -126,3 +126,7 @@
     padding: 64px 16px;
   }
 }
+
+.content {
+  min-height: 0;
+}
