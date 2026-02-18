@@ -2,27 +2,23 @@ import type { Transition } from "motion/react";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { useRef, useState } from "react";
 
-type DigitCustom = { dir: number; delay: number };
+type DigitCustom = { dir: number; delay: number; isNum: boolean };
+
+const isDigit = (c: string) => c >= "0" && c <= "9";
 
 const digitVariants = {
-  initial: ({ dir }: DigitCustom) => ({
-    y: dir > 0 ? "33%" : "-33%",
+  initial: ({ dir, isNum }: DigitCustom) => ({
+    y: isNum ? (dir > 0 ? "40%" : "-40%") : 0,
     opacity: 0,
-    scale: 0.5,
-    filter: "blur(2px)",
   }),
   animate: ({ delay }: DigitCustom) => ({
     y: 0,
-    scale: 1,
     opacity: 1,
-    filter: "blur(0px)",
     transition: { delay },
   }),
-  exit: ({ dir, delay }: DigitCustom) => ({
-    y: dir > 0 ? "-33%" : "33%",
+  exit: ({ dir, delay, isNum }: DigitCustom) => ({
+    y: isNum ? (dir > 0 ? "-40%" : "40%") : 0,
     opacity: 0,
-    scale: 0.5,
-    filter: "blur(2px)",
     transition: { delay },
   }),
 };
@@ -95,43 +91,40 @@ export function NumberRenderer({
         className={className}
         {...rest}
       >
-        <AnimatePresence mode="popLayout" initial={animateInitial}>
-          {chars.map((char, i) => {
-            const colIndex = chars.length - 1 - i;
-            const delay = i * stagger;
-            const isLast = i === chars.length - 1;
+        {chars.map((char, i) => {
+          const colIndex = chars.length - 1 - i;
+          const delay = i * stagger;
+          const isLast = i === chars.length - 1;
 
-            return (
-              <motion.span
+          return (
+            <motion.span
                 key={`col-${colIndex}`}
                 layout="position"
                 style={{ display: "inline-block" }}
               >
-                <AnimatePresence mode="popLayout" initial={animateInitial}>
-                  <motion.span
-                    key={digitKeys[i]}
-                    aria-hidden="true"
-                    variants={digitVariants}
-                    custom={{ dir, delay }}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    onAnimationComplete={
-                      isLast && onComplete ? onComplete : undefined
-                    }
-                    style={{
-                      display: "inline-block",
-                      whiteSpace: "pre",
-                      fontVariantNumeric: "tabular-nums",
-                    }}
-                  >
-                    {char}
-                  </motion.span>
-                </AnimatePresence>
-              </motion.span>
-            );
-          })}
-        </AnimatePresence>
+              <AnimatePresence mode="popLayout" initial={animateInitial}>
+                <motion.span
+                  key={digitKeys[i]}
+                  aria-hidden="true"
+                  variants={digitVariants}
+                  custom={{ dir, delay, isNum: isDigit(char) }}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  onAnimationComplete={
+                    isLast && onComplete ? onComplete : undefined
+                  }
+                  style={{
+                    display: "inline-block",
+                    whiteSpace: "pre",
+                  }}
+                >
+                  {char}
+                </motion.span>
+              </AnimatePresence>
+            </motion.span>
+          );
+        })}
       </Component>
     </MotionConfig>
   );

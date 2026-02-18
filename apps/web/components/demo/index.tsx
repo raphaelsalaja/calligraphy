@@ -14,7 +14,7 @@ type AnimationPreset = (typeof animationPresets)[number];
 
 const defaultWords = ["Calligraph", "Craft", "Creative", "Create"];
 
-const defaultPrices = ["35.99", "234.29", "123.45", "3.99", "4423.89"];
+const defaultPrices = ["35.99", "24.89", "17.38", "3.15"];
 
 const fmt = new Intl.NumberFormat("en-US", {
   style: "currency",
