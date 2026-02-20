@@ -1,5 +1,12 @@
 # web
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [cb4b14b]
+  - calligraph@1.1.2
+
 ## 0.0.9
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # calligraph
 
+## 1.1.2
+
+### Patch Changes
+
+- cb4b14b: Fix number variant animating currency/prefix symbols (e.g. `$`, `€`) on value change. Prefix characters now keep stable keys and only use layout positioning, so they slide smoothly without triggering rolling, blur, or fade animations.
+
 ## 1.1.1
 
 ### Patch Changes
